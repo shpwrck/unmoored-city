@@ -1,0 +1,1551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Unmoored City Player Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: light dark;
+  --paper:#EEF1F3; --paper-2:#E3E8EB; --ink:#1C2229; --ink-2:#4A5560; --rule:#C9D1D6;
+  --brass:#9A7A2E; --brass-soft:#D9C58F; --verdigris:#2F6E67; --verdigris-soft:#D6E8E4;
+  --code-bg:#E6EAEC; --quote-bg:#E9EDEF; --shadow:rgba(28,34,41,.08); }
+@media (prefers-color-scheme: dark) { :root {
+  --paper:#14191E; --paper-2:#1B2127; --ink:#DDE3E6; --ink-2:#9AA6AF; --rule:#2E373F;
+  --brass:#D0A94F; --brass-soft:#5C4A1E; --verdigris:#6BBFB3; --verdigris-soft:#1E3431;
+  --code-bg:#1E252B; --quote-bg:#1B2127; --shadow:rgba(0,0,0,.35); } }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif; font-size:17px; line-height:1.55; }
+.shell { display:grid; grid-template-columns:272px minmax(0,1fr); min-height:100vh; }
+nav.rail { position:sticky; top:0; height:100vh; overflow-y:auto; background:var(--paper-2); border-right:1px solid var(--rule); padding:28px 18px 40px; box-sizing:border-box; }
+nav.rail .brand { font-family:"Spectral",Georgia,serif; font-weight:700; font-size:20px; line-height:1.2; color:var(--ink); margin:0 0 4px; }
+nav.rail .brand small { display:block; font-family:"Source Sans 3",sans-serif; font-weight:400; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--brass); margin-top:6px; }
+nav.rail .home { display:block; font-size:13px; color:var(--verdigris); margin:10px 0 0; }
+nav.rail .navlist { display:flex; flex-direction:column; gap:1px; margin-top:20px; }
+nav.rail a { color:var(--ink-2); text-decoration:none; display:block; border-radius:3px; padding:4px 8px; font-size:14px; line-height:1.3; }
+nav.rail a:hover, nav.rail a:focus-visible { background:var(--verdigris-soft); color:var(--ink); outline:none; }
+nav.rail a.nav-l1 { color:var(--ink); font-weight:600; margin-top:12px; font-family:"Spectral",Georgia,serif; font-size:15px; }
+nav.rail a.nav-l2 { padding-left:18px; }
+nav.rail, main { min-width:0; }
+main { padding:48px 56px 120px; box-sizing:border-box; }
+.content { max-width:74ch; }
+h1,h2,h3,h4 { font-family:"Spectral",Georgia,serif; text-wrap:balance; line-height:1.15; }
+h1 { font-size:38px; font-weight:700; margin:64px 0 12px; padding-top:18px; border-top:3px solid var(--brass); }
+h1:first-of-type { margin-top:0; border-top:0; padding-top:0; font-size:46px; }
+h2 { font-size:26px; font-weight:700; margin:44px 0 10px; }
+h3 { font-size:20px; font-weight:700; margin:30px 0 8px; color:var(--brass); }
+h4 { font-size:17px; font-weight:700; margin:22px 0 6px; }
+p { margin:0 0 14px; } strong { font-weight:600; } a { color:var(--verdigris); }
+code { font-family:"IBM Plex Mono",Consolas,monospace; font-size:.88em; background:var(--code-bg); padding:1px 5px; border-radius:3px; }
+pre { background:var(--code-bg); border-left:3px solid var(--brass); padding:14px 16px; overflow-x:auto; font-size:14px; line-height:1.45; margin:14px 0 18px; }
+pre code { background:none; padding:0; font-size:inherit; }
+blockquote { margin:16px 0 18px; padding:12px 18px; background:var(--quote-bg); border-left:3px solid var(--verdigris); font-family:"Spectral",Georgia,serif; font-style:italic; font-size:18px; }
+blockquote p { margin:0; }
+ul,ol { padding-left:24px; margin:0 0 14px; } li { margin:0 0 5px; } li.task { list-style:none; margin-left:-20px; }
+hr { border:0; border-top:1px solid var(--rule); margin:40px 0; }
+.tbl { overflow-x:auto; margin:12px 0 20px; border:1px solid var(--rule); border-radius:4px; box-shadow:0 1px 2px var(--shadow); }
+table { border-collapse:collapse; width:100%; font-size:15px; font-variant-numeric:tabular-nums; }
+th { background:var(--paper-2); font-weight:600; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); padding:9px 12px; border-bottom:2px solid var(--brass-soft); white-space:nowrap; }
+td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; } tr:last-child td { border-bottom:0; } td:first-child { font-weight:600; }
+@media (max-width:900px) { .shell { grid-template-columns:minmax(0,1fr); } nav.rail { position:static; height:auto; max-height:40vh; border-right:0; border-bottom:1px solid var(--rule); } main { padding:28px 20px 80px; } h1:first-of-type { font-size:34px; } h1 { font-size:30px; } }
+@media print { nav.rail { display:none; } .shell { display:block; } main { padding:0; } .content { max-width:none; } h1 { break-before:page; } h1:first-of-type { break-before:auto; } }
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="rail" aria-label="Sections">
+  <p class="brand">The Unmoored City<small>Player Guide</small></p>
+  <a class="home" href="../">Back to the front page</a>
+  <div class="navlist">
+<a class="nav-l2" href="#the-premise-the-players-know">The premise the players know</a>
+<a class="nav-l2" href="#the-repeated-expedition-loop">The repeated expedition loop</a>
+<a class="nav-l2" href="#the-foreclock">The Foreclock</a>
+<a class="nav-l2" href="#the-project-board">The project board</a>
+<a class="nav-l2" href="#return-boundaries-and-table-rotation">Return boundaries and table rotation</a>
+<a class="nav-l2" href="#finale-expectations">Finale expectations</a>
+<a class="nav-l2" href="#table-expectations">Table expectations</a>
+<a class="nav-l2" href="#choosing-a-character">Choosing a character</a>
+<a class="nav-l2" href="#roster-at-a-glance">Roster at a glance</a>
+<a class="nav-l2" href="#brannik-stonewake">Brannik Stonewake</a>
+<a class="nav-l2" href="#lio-bellweather">Lio Bellweather</a>
+<a class="nav-l2" href="#calder-ash">Calder Ash</a>
+<a class="nav-l2" href="#veya-reed">Veya Reed</a>
+<a class="nav-l2" href="#mara-venn">Mara Venn</a>
+<a class="nav-l2" href="#tamsin-vale">Tamsin Vale</a>
+<a class="nav-l2" href="#oren-valebright">Oren Valebright</a>
+<a class="nav-l2" href="#neris-moss">Neris Moss</a>
+<a class="nav-l2" href="#ilyra-quill">Ilyra Quill</a>
+<a class="nav-l2" href="#nyra-cinderglass">Nyra Cinderglass</a>
+<a class="nav-l2" href="#edrik-fen">Edrik Fen</a>
+<a class="nav-l2" href="#thea-flint">Thea Flint</a>
+  </div>
+</nav>
+<main>
+<div class="content">
+<h1 id="the-unmoored-city-player-guide">The Unmoored City: Player Guide</h1>
+<p>Everything on this page is public. Your character's private motive card is handed to you at the table and is yours alone.</p>
+<h2 id="the-premise-the-players-know">The premise the players know</h2>
+<p>Beyond a broken ravine lies an ancient ruined city that sometimes appears intact through silver Mist. The Mist can pull a plausible finished future into the present: a repaired bridge, a forged tool, a working cistern. Stories disagree about what the city loses when it skips the work between intention and result. Each character has a public reason to investigate and one private opportunity. The road home becomes real after the opening experiment, and it reappears at every return to the central square.</p>
+<h2 id="the-repeated-expedition-loop">The repeated expedition loop</h2>
+<p>This test contains five complete expedition cycles:</p>
+<ol>
+<li>Choose one unfinished project and learn its known reward, principle, and hazard.</li>
+<li>Explore that project's site.</li>
+<li>Observe, test, negotiate, bypass, fight, use Mist, or propose another plausible route.</li>
+<li>Return with a tangible resource, operating knowledge, and any evidence recovered.</li>
+<li>Take an optional Short Rest and settle public custody.</li>
+<li>Build the project by spending one visible Foreclock interval, or leave while the road remains open.</li>
+</ol>
+<p>The two anchor characters retain a complete route through every puzzle and finale task. A character sheet can make a route faster, safer, or more expressive, but no class, spell, tool, species, motive, or optional player is required.</p>
+<h2 id="the-foreclock">The Foreclock</h2>
+<p>The Foreclock has six visible intervals. The opening experiment spends the first. Each completed project spends one more. The Steward and overlapping city become more coherent as the intervals darken. The fifth project spends the sixth interval and begins Reclamation.</p>
+<p>At each of the first four project builds, a <strong>Three-Hand Commissioning Dial</strong> makes that accounting a small public puzzle instead of hidden bookkeeping. Its three hands show completed returns, built projects, and spent Foreclock intervals. The build lock opens only at <code>returns=N; built=N; Foreclock spent=N+1</code>. A wrong alignment gives visible mismatch feedback and may be corrected freely; it spends no action, roll, resource, interval, or consequence. The fifth build uses the separate Forked-Key Commissioning Gate after the outcome audit.</p>
+<p>The DM states the known consequence before every project pull. Before the final pull, the DM discloses every supported ending and asks the active players to restate the stakes. No opening project preference commits the party to a later pull.</p>
+<p>Before that final choice, the table completes the <strong>Six-Seal Outcome Audit</strong>. Six public seals—Living Anchor, Full Transfer, Partial Transfer, Erasure, Voluntary Anchor, and Capacity—are matched against the visible Leave, Full Transfer, Partial Transfer, and Voluntary Anchor columns. The outcome matrix stays in view; this verifies informed consent rather than testing memory. Correct placement needs no roll. The follow-up <strong>False-Seal Ledger puzzle</strong> adds one counterfeit claim—<strong>“Consent can replace missing task capacity.”</strong> Each anchor separately says <strong>counterfeit rejected</strong>, restates the six real boundaries, and places a distinct signature key in that anchor's rail. A mistake sounds two notes and the DM restates the missing row; both independent rails must latch before a complete audit sounds one clear note and records <code>public-outcome-proof</code>.</p>
+<p>The proof lets either player request one free delta-only reminder of the currently applicable outcome row during the finale. It never supplies an action, task, progress, Doubt, capacity, or reroll.</p>
+<p>The final BUILD/LEAVE decision uses a <strong>Forked-Key Commissioning Gate</strong>. Each anchor has one independent key with BUILD and LEAVE faces; one key cannot operate the other rail. After the DM opens the gate, each player names one specific stake in the form <strong>personal future stake: <em>what BUILD tests, preserves, costs, or tempts</em></strong> and turns only that character's key. Both BUILD faces are required for the final pull. If either player chooses LEAVE, the road remains open and Reclamation does not begin.</p>
+<p>Before turning a key, a character may optionally test or personalize that rail with a relevant class feature, skill, tool, or spell. A sound inspection needs no roll; genuinely uncertain execution uses one DC 10 check. Success earns one commissioning edge for Advantage on a later related Reclamation Influence, Study, or Utilize check. Failure still proves the rails independent and leaves the choice open, though any declared action or resource remains spent. The edge cannot create task progress, Doubt, or capacity or bypass a later-round gate.</p>
+<h2 id="the-project-board">The project board</h2>
+<p>At every return, choose any unfinished row. The order is strategic and changes what tools are available during later expeditions. Your table may offer only the core five, or the wider board.</p>
+<h3 id="the-core-five">The core five</h3>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Project and arena</th>
+<th style="text-align:left">Public capability</th>
+<th style="text-align:left">Recoverable principle</th>
+<th style="text-align:left">Known hazard</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left"><strong>Surveyor's Lens: Counterweight Foundry</strong></td>
+<td style="text-align:left">Separates ruined, restored, and parallel structures; exposes false routes.</td>
+<td style="text-align:left">Balance the prism's cargo cage by its marked mass; keep a living operator outside; use the four unused mass units for the inspection sling if someone is stranded at the landing.</td>
+<td style="text-align:left">Dormant bronze sentinels defend forced or exposed operation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Refuge Gate: Floodglass Cistern</strong></td>
+<td style="text-align:left">Holds a safe boundary and gives endangered people a stable way out.</td>
+<td style="text-align:left">Divide eight water-marks into two equal four-mark channels while a second station reads pressure vanes, braces threatened grates, and handles a split-vane rescue.</td>
+<td style="text-align:left">Corrosive gray oozes wake when overflow reaches an unbraced grate.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Handwork Forge: Emberglass Kiln</strong></td>
+<td style="text-align:left">Lets living craftspeople inspect, repair, and correct Mist-assisted work.</td>
+<td style="text-align:left">Shape at heat five, solve the visible Three-Flue Draft Lock, vent to three, then quench to one.</td>
+<td style="text-align:left">Bound fire and steam elementals escape when pressure, flue order, or heat sequence is forced or mishandled.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Witness Bell: Echo Archive</strong></td>
+<td style="text-align:left">Authenticates records and carries one documented truth through temporal overlap.</td>
+<td style="text-align:left">Arrange the audit chain by matching each plate's exit seal to the next entry seal and reject the impossible forgery.</td>
+<td style="text-align:left">Rival salvagers and disturbed bat swarms contest custody.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Meridian Spire: Meridian Orrery</strong></td>
+<td style="text-align:left">Distinguishes the current, remembered, and freely possible skies and marks stable passage.</td>
+<td style="text-align:left">Fix the current and remembered meridians, then place the free future midway between them.</td>
+<td style="text-align:left">Web predators occupy the moving rings and react to false alignments.</td>
+</tr>
+</tbody></table></div>
+<h3 id="optional-projects-wider-board">Optional projects (wider board)</h3>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Project and arena</th>
+<th style="text-align:left">Public capability</th>
+<th style="text-align:left">Recoverable principle</th>
+<th style="text-align:left">Known hazard</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left"><strong>Warden's Bulwark: Sentinel Drillyard</strong></td>
+<td style="text-align:left">A manned gatehouse whose bound sentinel answers the standard-bearer.</td>
+<td style="text-align:left">The drill company obeys the muster standard and three drummed signals: advance, hold, stand down. Recover the standard and the beats.</td>
+<td style="text-align:left">A company of bronze sentinels drills in the yard and attacks anything without a standard.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Vigil Lantern: Ossuary Stair</strong></td>
+<td style="text-align:left">A lantern whose light steadies people who are coming apart.</td>
+<td style="text-align:left">The city's dead were kept at rest by living vigils and spoken litanies; a raised flame and the carved lines at each landing send them back.</td>
+<td style="text-align:left">The dead of the niches rise as the stair is climbed without a vigil.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Granary: Silvergrain Terraces</strong></td>
+<td style="text-align:left">A store of preserved rations and a place to rest well.</td>
+<td style="text-align:left">Cut on the falling tide, carry on the slack, climb on the rise. Six measures from four terraces before the Mist tide returns.</td>
+<td style="text-align:left">Giant wasps nest in the upper terrace; anything below the tide mark at the rise is unmade.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Concord Table: Salvagers' Moot</strong></td>
+<td style="text-align:left">A table where witnessed terms hold.</td>
+<td style="text-align:left">A claim holds when three of the four factions at the moot mark the stone; each has a public want and a public grievance.</td>
+<td style="text-align:left">A salvage captain and her crew hold the market and do not like competitors.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hearing Bench: Petitioners' Court</strong></td>
+<td style="text-align:left">A bench where an Unmoored can be heard and given one answer that holds.</td>
+<td style="text-align:left">The court's seal engages only when a judgment states a reason the petitioner can repeat back. Hear three petitions.</td>
+<td style="text-align:left">Dismissing a petitioner unheard wakes the court's bailiff.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Beast Refuge: Menagerie Warrens</strong></td>
+<td style="text-align:left">Pens where captured beasts are calm, and a refuge that shelters more than people.</td>
+<td style="text-align:left">Each beast has a want and a fear on its old pen plaque; a beast led to its want and away from its fear follows the ring-bearer. Pens seal only around a pair.</td>
+<td style="text-align:left">Three pairs of unmoored beasts, fractious and half-present, in three warrens.</td>
+</tr>
+</tbody></table></div>
+<p>Every project remains useful if the party stops early. Completing a project expands what the base can do; it does not silently complete a later finale action.</p>
+<h2 id="return-boundaries-and-table-rotation">Return boundaries and table rotation</h2>
+<p>The central square is the only join, leave, and custody-transfer boundary. At a return:</p>
+<ul>
+<li>an arriving player receives the public recap, one unclaimed character sheet, and that character's private motive choice;</li>
+<li>a departing player returns the character sheet and private dossier to the DM;</li>
+<li>cargo and public evidence go to the visible base ledger unless an active character explicitly keeps custody; and</li>
+<li>the two anchors keep every critical route.</li>
+</ul>
+<h2 id="finale-expectations">Finale expectations</h2>
+<p>The finale uses initiative, enemies, terrain, four public anchor tasks, persuasion, attacks, rescue, movement, tools, spells, and other ordinary D&amp;D actions. Projects make specific procedures reliable, but the players still spend actions to perform them.</p>
+<p>The four tasks are <strong>Map</strong>, <strong>Fabricate</strong>, <strong>Brace</strong>, and <strong>Synchronize</strong>. A full sound route uses five progress actions because Synchronize requires <strong>Calibrate</strong> and then <strong>Lock</strong> in later rounds. The Witness Bell supports Influence against the Steward; it is not a fifth task and does not add task progress.</p>
+<p>The public contract distinguishes these stakes: living people can be fixed in stasis and lose departure and future change; four tasks and five progress actions support full transfer of the five-project boundary; exactly three tasks support only one player-selected district or named group; fewer than three tasks cannot support transfer and can erase supported Unmoored when the Steward is dispersed; partial transfer erases unsupported Unmoored; a character can voluntarily anchor at the same permanent personal cost; and Doubt or persuasion changes the Steward's conduct but cannot replace task capacity. A full transfer also leaves all five project instruments behind as permanent civic boundary supports.</p>
+<p>After Initiative, the DM stops after every round, publishes one authoritative <strong>ROUND CARD</strong>, and asks each player separately what that character does next. The card shows current TS, every remaining limited resource, current healing formulas, all station aliases, exact character positions, active opponents with Cohesion and positions, all task and later-round gate states, exact Doubt, <strong>Movement exposure:</strong> for adjacent Opportunity Attack and cover consequences, <strong>Next Progress Gate:</strong> for what can advance now and what opens next, and <strong>Legal next actions:</strong>. Round numbers begin at 1 and advance by one. An opening plan cannot authorize several future rounds. This gives the table room to react to damage, the Steward's conduct, changing capacity, and one another.</p>
+<p>The exact station aliases are <strong>CENTER = Meridian Spire</strong>, <strong>NORTH = Surveyor's Lens</strong>, <strong>EAST = Handwork Forge</strong>, <strong>SOUTH = Refuge Gate</strong>, and <strong>WEST = Witness Bell</strong>. Every outer project housing is 20 feet from CENTER. The neighboring outer edges NORTH-EAST, EAST-SOUTH, SOUTH-WEST, and WEST-NORTH are 20 feet. The non-neighboring outer pairs NORTH-SOUTH and EAST-WEST are 30 feet. A housing grants Half Cover only when it physically stands between attacker and target, never against an adjacent attacker sharing that housing.</p>
+<p>Before Initiative, the new <strong>Five-Lane Route Card</strong> puzzle verifies that geometry. Jesse independently confirms <strong>WEST-NORTH = neighboring = 20 feet</strong> and <strong>EAST-WEST = non-neighboring = 30 feet</strong>. Frank independently confirms <strong>NORTH-EAST = neighboring = 20 feet</strong> and <strong>NORTH-SOUTH = non-neighboring = 30 feet</strong>. A wrong key sounds two notes and is freely retryable; it costs no action, roll, resource, Doubt, progress, capacity, or time, and one player cannot place the other player's key.</p>
+<h2 id="table-expectations">Table expectations</h2>
+<ul>
+<li>Break character naturally. Jokes, rules questions, theories, and reactions are welcome.</li>
+<li>If two of you want the same exclusive job, each give a first and second choice once. If the first choices still collide, agree on a tie-break, and whoever wins it keeps priority for that arena. Nobody controls anyone else's character.</li>
+<li>Test the premise. Try the apparently wrong way. Circumvent the expected route if it is credible. I will adjudicate from the stated physical and magical principles.</li>
+<li>A correct feasible procedure succeeds without a gratuitous check.</li>
+<li>Once everyone has authorized a complete safe procedure and their own role, I will resolve the deterministic steps together. Play pauses again for any new clue, NPC, hazard, resource choice, changed mechanism, or decision.</li>
+<li>Failed checks and wrong models change cost, position, pressure, or information. They do not erase the expedition.</li>
+<li>Combat is a legitimate route, never the only one.</li>
+<li>Mist is a tempting shortcut with a visible anomaly and a repair path.</li>
+<li>You may disagree, reveal motives, or pursue self-interest, but nobody controls another player's character or hides a critical public clue.</li>
+</ul>
+<h1 id="the-twelve-characters">The twelve characters</h1>
+<p>All twelve are level 3, built on the standard array with SRD backgrounds and species. Every critical puzzle and finale task has a route open to any two of them; no class, spell, or tool is required.</p>
+<h2 id="choosing-a-character">Choosing a character</h2>
+<ol>
+<li>Read the public pitches below. Each character has a stable public disposition and a public reason for coming to the ravine.</li>
+<li>The two anchor players choose first, and must choose different characters. A player joining later takes any unclaimed sheet.</li>
+<li>After you choose, the DM privately offers you three motive cards for that character. You keep one and tell only the DM. Your public disposition does not change, so nobody learns your choice unless you reveal it.</li>
+<li>Your motive may create negotiation at the table. It never requires betrayal, theft from another player, or hiding a clue the party needs.</li>
+<li>There is no Long Rest during the one-shot. Anything that returns on a Long Rest is once for the day. A Short Rest is offered every time you return to the square.</li>
+</ol>
+<h2 id="roster-at-a-glance">Roster at a glance</h2>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Class</th>
+<th style="text-align:left">Character</th>
+<th style="text-align:left">Public role</th>
+<th style="text-align:left">Complexity</th>
+<th style="text-align:right">Init</th>
+<th style="text-align:right">HP</th>
+<th style="text-align:right">AC</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Barbarian</td>
+<td style="text-align:left">Brannik Stonewake, dwarf Berserker</td>
+<td style="text-align:left">Stonebreaker and salvage liftwright</td>
+<td style="text-align:left">Average</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">35</td>
+<td style="text-align:right">15 (13 with Greataxe)</td>
+</tr>
+<tr>
+<td style="text-align:left">Bard</td>
+<td style="text-align:left">Lio Bellweather, halfling College of Lore</td>
+<td style="text-align:left">Civic balladeer and contract witness</td>
+<td style="text-align:left">High</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">13</td>
+</tr>
+<tr>
+<td style="text-align:left">Cleric</td>
+<td style="text-align:left">Calder Ash, goliath Life Domain</td>
+<td style="text-align:left">Hospice field-priest and burial surveyor</td>
+<td style="text-align:left">Average</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">18</td>
+</tr>
+<tr>
+<td style="text-align:left">Druid</td>
+<td style="text-align:left">Veya Reed, wood elf Circle of the Land</td>
+<td style="text-align:left">Ravine ecologist and seasonal pathfinder</td>
+<td style="text-align:left">High</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">24</td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td style="text-align:left">Fighter</td>
+<td style="text-align:left">Mara Venn, human Champion</td>
+<td style="text-align:left">Caravan guard and failed forge-owner</td>
+<td style="text-align:left">Low</td>
+<td style="text-align:right">+2 (Adv)</td>
+<td style="text-align:right">28</td>
+<td style="text-align:right">17</td>
+</tr>
+<tr>
+<td style="text-align:left">Monk</td>
+<td style="text-align:left">Tamsin Vale, orc Warrior of the Open Hand</td>
+<td style="text-align:left">Monastic courier and boundary scout</td>
+<td style="text-align:left">High</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:left">Paladin</td>
+<td style="text-align:left">Oren Valebright, silver dragonborn Devotion</td>
+<td style="text-align:left">Sworn road warden and claim arbiter</td>
+<td style="text-align:left">Average</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">28</td>
+<td style="text-align:right">19</td>
+</tr>
+<tr>
+<td style="text-align:left">Ranger</td>
+<td style="text-align:left">Neris Moss, high elf Hunter</td>
+<td style="text-align:left">Licensed route surveyor and missing-caravan tracker</td>
+<td style="text-align:left">Average</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">28</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:left">Rogue</td>
+<td style="text-align:left">Ilyra Quill, human Thief</td>
+<td style="text-align:left">Antiquarian surveyor and salvage authenticator</td>
+<td style="text-align:left">Low</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td style="text-align:left">Sorcerer</td>
+<td style="text-align:left">Nyra Cinderglass, infernal tiefling Draconic</td>
+<td style="text-align:left">Magical-glass conservator and anomaly assessor</td>
+<td style="text-align:left">High</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">23</td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td style="text-align:left">Warlock</td>
+<td style="text-align:left">Edrik Fen, rock gnome Fiend patron</td>
+<td style="text-align:left">Occult contract translator and hostile-bargain specialist</td>
+<td style="text-align:left">High</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">13</td>
+</tr>
+<tr>
+<td style="text-align:left">Wizard</td>
+<td style="text-align:left">Thea Flint, dwarf Evoker</td>
+<td style="text-align:left">Structural arcanist and Mistwork theorist</td>
+<td style="text-align:left">Average</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">23</td>
+<td style="text-align:right">14 (Mage Armor)</td>
+</tr>
+</tbody></table></div>
+<p>Tracked consumables: Mara, Neris, and Ilyra each carry 20 arrows (after a fight, one minute of searching recovers half the arrows spent in that fight, rounded down). Oren carries one flask of Holy Water, consumed by one casting of Protection from Evil and Good; it does not come back during the day.</p>
+<hr>
+<h2 id="brannik-stonewake">Brannik Stonewake</h2>
+<p>Dwarf Soldier, level 3 Path of the Berserker Barbarian</p>
+<p><strong>Public disposition:</strong> You assess failed quarries, bridges, and freight machinery by testing what their builders expected stone and muscle to bear. A trade factor hired you to determine whether the Borrowed Road and the city's lifting works can support real salvage crews.</p>
+<blockquote><p>If the old builders balanced that city by hand, I want their measure. If they trusted the Mist instead, I want to see where it cracked.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">15 (Unarmored Defense and Shield); 13 while using the Greataxe</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">35 (3d12 Hit Dice; includes Dwarven Toughness)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">13</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+4</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Athletics +5, Intimidation +1, Nature +2, Perception +3, Survival +3. Dragonchess Set +3 (Wis).</li>
+<li>Simple and martial weapons; light and medium armor; Shields. Common, Dwarvish, Giant.</li>
+</ul>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Attack</th>
+<th style="text-align:right">Roll</th>
+<th style="text-align:left">Hit</th>
+<th style="text-align:left">Mastery</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Greataxe</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d12 + 3 Slashing</td>
+<td style="text-align:left">Cleave</td>
+</tr>
+<tr>
+<td style="text-align:left">Handaxe</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d6 + 3 Slashing; thrown 20/60 ft</td>
+<td style="text-align:left">Vex</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>Rage (3 uses):</strong> Bonus Action; Resistance to Bludgeoning, Piercing, Slashing; +2 Strength-based damage; Advantage on Strength checks and saves. One use returns on a Short Rest. Rage must be extended each turn by attacking, or by a Bonus Action; ask the player each turn.</li>
+<li><strong>Reckless Attack:</strong> Advantage on Strength attacks this turn; attacks against Brannik have Advantage until his next turn.</li>
+<li><strong>Frenzy:</strong> while raging, first Strength-based hit on a turn after Reckless Attack deals extra 2d6.</li>
+<li><strong>Danger Sense:</strong> Advantage on Dexterity saves while not Incapacitated.</li>
+<li><strong>Primal Knowledge:</strong> while raging, Acrobatics, Intimidation, Perception, Stealth, or Survival can use Strength.</li>
+<li><strong>Savage Attacker:</strong> once per turn after a weapon hit, roll damage dice twice and use either.</li>
+<li><strong>Dwarf:</strong> Darkvision 120 ft, Poison Resistance, Advantage vs Poisoned, Stonecunning twice per Long Rest.</li>
+<li><strong>Useful turn:</strong> Rage, Reckless Attack, Greataxe; or handaxe and Shield when holding a station.</li>
+</ul>
+<p>Equipment: Greataxe, four Handaxes, Shield, Explorer's Pack, Healer's Kit, Dragonchess Set, traveler supplies.</p>
+<hr>
+<h2 id="lio-bellweather">Lio Bellweather</h2>
+<p>Halfling Acolyte, level 3 College of Lore Bard</p>
+<p><strong>Public disposition:</strong> You travel as a civic balladeer, contract witness, and collector of songs that encode who promised what to whom. A consortium asked you to record the causeway's appearances and determine whether the city preserves authentic voices or merely convincing echoes.</p>
+<blockquote><p>A machine can repeat a song. I came to learn whether this city remembers who was allowed to answer it.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">13 (Leather Armor)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">21 (3d8 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Small / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">13 / +5</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+4</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">11</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Deception +5, History +3, Insight +2, Investigation +3, Perception +2, Performance +7 (Expertise), Persuasion +7 (Expertise), Religion +3. Drum, flute, lute; Calligrapher's Supplies. Common, Halfling, Elvish.</li>
+<li>Dagger +4 (1d4+2 Piercing, thrown 20/60 ft).</li>
+<li><strong>Cantrips:</strong> Mage Hand, Vicious Mockery. <strong>Prepared:</strong> Detect Magic, Dissonant Whispers, Healing Word, Heroism, Enhance Ability, Shatter. <strong>Slots:</strong> four level 1, two level 2.</li>
+<li><strong>Acolyte Magic Initiate:</strong> Light, Spare the Dying, one free Sanctuary per Long Rest (Charisma).</li>
+<li><strong>Bardic Inspiration (3 uses, d6):</strong> Bonus Action; a creature within 60 ft adds the die after failing a D20 Test. Returns on Long Rest only.</li>
+<li><strong>Cutting Words:</strong> Reaction plus one Inspiration use to subtract d6 from a visible creature's damage roll, ability check, or attack roll.</li>
+<li><strong>Jack of All Trades:</strong> +1 on unproficient ability checks.</li>
+<li><strong>Halfling:</strong> Brave, Halfling Nimbleness, Luck (reroll a natural 1), Naturally Stealthy.</li>
+<li><strong>Healing Word:</strong> 2d4 + 3 at level 1; 4d4 + 3 at level 2.</li>
+<li><strong>Useful turn:</strong> inspire the character attempting a task; hold Healing Word for an ally at 0 Stability; Shatter clustered enemies.</li>
+</ul>
+<p>Equipment: Leather Armor, two Daggers, lute, Calligrapher's Supplies, Holy Symbol, parchment, Entertainer's Pack, traveler supplies.</p>
+<hr>
+<h2 id="calder-ash">Calder Ash</h2>
+<p>Goliath Acolyte, level 3 Life Domain Cleric</p>
+<p><strong>Public disposition:</strong> You serve a roadside hospice as a field-priest, healer, and surveyor of abandoned burial grounds. The hospice sent you to learn whether the city's restorative works preserve living patients or only the appearance of successful care.</p>
+<blockquote><p>A cure should return someone to their life. If it keeps the patient and loses the future, it is only a well-kept tomb.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">18 (Chain Mail and Shield)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">21 (3d8 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 35 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">13</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">13 / +5</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+3</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Insight +5, Medicine +5, Persuasion +3, Religion +2. Calligrapher's Supplies. Simple and martial weapons; all armor and Shields (Protector). Common, Giant, Dwarvish.</li>
+<li>Mace +4 (1d6+2 Bludgeoning).</li>
+<li><strong>Cantrips:</strong> Guidance, Sacred Flame (1d8 Radiant, Dex save), Spare the Dying. <strong>Prepared:</strong> Command, Detect Magic, Guiding Bolt, Healing Word, Spiritual Weapon, Zone of Truth. <strong>Always prepared (Life):</strong> Aid, Bless, Cure Wounds, Lesser Restoration. <strong>Slots:</strong> four level 1, two level 2.</li>
+<li><strong>Acolyte Magic Initiate:</strong> Light, Mending, one free Sanctuary per Long Rest (Wisdom).</li>
+<li><strong>Channel Divinity (2 uses):</strong> Divine Spark (heal or harm at range); Turn Undead; <strong>Preserve Life</strong> distributes 15 HP among Bloodied creatures within 30 ft, up to half each target's maximum. One use returns on a Short Rest.</li>
+<li><strong>Disciple of Life:</strong> a spell-slot healing spell restores 2 + slot level extra HP on the casting turn.</li>
+<li><strong>Stone's Endurance (2 uses):</strong> Reaction to reduce damage by 1d12+1. Long Rest only. Powerful Build; Advantage to end Grappled.</li>
+<li><strong>Healing Word (exact):</strong> level 1 = 2d4 + 3 (Wis) + 3 (Disciple) = 2d4 + 6. Level 2 = 4d4 + 3 + 4 = 4d4 + 7. Cure Wounds level 1 = 2d8 + 3 + 3.</li>
+<li><strong>Useful turn:</strong> Bless before pressure; Healing Word as a Bonus Action; Preserve Life when more than one ally is Bloodied.</li>
+</ul>
+<p>Equipment: Chain Mail, Shield, Mace, Holy Symbol, Calligrapher's Supplies, prayer book, parchment, Robe, traveler supplies.</p>
+<hr>
+<h2 id="veya-reed">Veya Reed</h2>
+<p>Wood Elf Sage, level 3 Circle of the Land Druid</p>
+<p><strong>Public disposition:</strong> You study the ravine as an ecologist and seasonal pathfinder, tracking plants that flower, wither, and regrow out of sequence near the silver Mist. Your circle asked you to determine which cycles the city borrows and whether any restored system can live without borrowing again.</p>
+<blockquote><p>Nothing living stays finished. I distrust any garden that calls change a defect.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">14 (Leather Armor and Shield)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">24 (3d8 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 35 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">15</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">13 / +5</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Arcana +6 and Nature +6 (Magician adds Wis), History +3, Insight +5, Perception +5. Herbalism Kit, Calligrapher's Supplies. Simple weapons; light armor and Shields. Common, Elvish, Dwarvish, Druidic.</li>
+<li>Shillelagh Quarterstaff +5 (1d8+3 Force or Bludgeoning).</li>
+<li><strong>Cantrips:</strong> Guidance, Produce Flame, Shillelagh, Druidcraft. <strong>Prepared:</strong> Cure Wounds, Detect Magic, Entangle, Faerie Fire, Enhance Ability, Locate Object. <strong>Always prepared:</strong> Speak with Animals; Circle spells Misty Step, Shocking Grasp, Sleep; Longstrider (Wood Elf, one free per Long Rest). <strong>Slots:</strong> four level 1, two level 2.</li>
+<li><strong>Sage Magic Initiate:</strong> Mage Hand, Message, one free Feather Fall per Long Rest (Wisdom).</li>
+<li><strong>Wild Shape (2 uses):</strong> Bonus Action; Rat, Riding Horse, Spider, or Wolf for 1 hour; 3 Temporary HP. One use returns on a Short Rest.</li>
+<li><strong>Wild Companion:</strong> spend a slot or Wild Shape use to cast Find Familiar without components.</li>
+<li><strong>Land's Aid:</strong> spend Wild Shape as a Magic action; 10-ft-radius Sphere, chosen creatures take 2d6 Necrotic (Con save), one chosen creature regains 2d6 HP.</li>
+<li><strong>Wood Elf:</strong> Darkvision 60 ft, Fey Ancestry, Trance.</li>
+<li><strong>Useful turn:</strong> Entangle or Faerie Fire to shape the field; Wild Shape to scout; Shillelagh when holding a station.</li>
+</ul>
+<p>Equipment: Leather Armor, Shield, Sickle, Quarterstaff focus, Herbalism Kit, Calligrapher's Supplies, Scholar's Pack, field journal, traveler supplies.</p>
+<hr>
+<h2 id="mara-venn">Mara Venn</h2>
+<p>Human Soldier, level 3 Champion Fighter</p>
+<p><strong>Public disposition:</strong> You are a practical caravan guard and failed forge-owner hired to verify the disputed salvage road and authenticate any working forge machinery recovered beyond it.</p>
+<blockquote><p>I was hired to verify a salvage road. If there is a working forge on the other side, I intend to leave owning more than my fee.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">17 (Chain Mail, Defense Fighting Style)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">28 (3d10 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+2 with Advantage</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">12</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+4</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Athletics +5 with Advantage (Remarkable Athlete), History +1, Insight +2, Intimidation +3, Investigation +1, Perception +2, Survival +2. Smith's Tools +5 (Str), Dragonchess Set +2 (Wis). All armor, Shields, simple and martial weapons. Common, Dwarvish, Giant.</li>
+</ul>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Attack</th>
+<th style="text-align:right">Roll</th>
+<th style="text-align:left">Hit</th>
+<th style="text-align:left">Mastery</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Greatsword</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">2d6 + 3 Slashing</td>
+<td style="text-align:left">Graze</td>
+</tr>
+<tr>
+<td style="text-align:left">Flail</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d8 + 3 Bludgeoning</td>
+<td style="text-align:left">Sap</td>
+</tr>
+<tr>
+<td style="text-align:left">Javelin</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d6 + 3 Piercing; 30/120 ft</td>
+<td style="text-align:left">Slow</td>
+</tr>
+<tr>
+<td style="text-align:left">Shortbow</td>
+<td style="text-align:right">+4</td>
+<td style="text-align:left">1d6 + 2 Piercing; 80/320 ft; 20 arrows</td>
+<td style="text-align:left">-</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>Second Wind (2 uses):</strong> Bonus Action, regain 1d10+3 HP. One use returns on a Short Rest.</li>
+<li><strong>Tactical Mind:</strong> after failing an ability check, spend Second Wind to add 1d10; not spent if the check still fails.</li>
+<li><strong>Action Surge (1 use):</strong> one extra non-Magic action; returns on a Short Rest. Cannot bypass finale round gates.</li>
+<li><strong>Improved Critical, Remarkable Athlete:</strong> crits on 19-20; Advantage on Initiative and Athletics; after a critical hit move half Speed without Opportunity Attacks.</li>
+<li><strong>Human:</strong> Heroic Inspiration after a Long Rest; Skilled (Insight, Survival, Smith's Tools).</li>
+<li><strong>Savage Attacker:</strong> once per turn after a weapon hit, roll damage dice twice and use either.</li>
+<li><strong>Useful turn:</strong> hold a threat with the flail; solve physical mechanisms with Athletics or Smith's Tools; Action Surge when the finale needs both a task and an attack.</li>
+</ul>
+<p>Equipment: Chain Mail, Greatsword, Flail, eight Javelins, Shortbow with twenty Arrows, Spear, Healer's Kit, Dragonchess Set, Dungeoneer's Pack, traveler supplies.</p>
+<hr>
+<h2 id="tamsin-vale">Tamsin Vale</h2>
+<p>Orc Soldier, level 3 Warrior of the Open Hand Monk</p>
+<p><strong>Public disposition:</strong> You carry sealed petitions, emergency medicine, and route reports between isolated communities for a monastery that treats delivery as a public trust. You followed the Borrowed Road to learn whether it can become a repeatable passage rather than another miraculous exception.</p>
+<blockquote><p>A road is not proven when one swift traveler crosses it. It is proven when the slowest person can leave it behind.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">15 (Unarmored Defense)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">21 (3d8 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 40 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td style="text-align:left">Focus save DC</td>
+<td style="text-align:right">12</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Acrobatics +5, Athletics +3, Insight +4, Intimidation +1. Smith's Tools +3 (Str), Dice Set +4 (Wis). Simple weapons and Light martial weapons. Common, Orc, Giant.</li>
+</ul>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Attack</th>
+<th style="text-align:right">Roll</th>
+<th style="text-align:left">Hit</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Unarmed Strike</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d6 + 3 Bludgeoning, or Grapple/Shove DC 13</td>
+</tr>
+<tr>
+<td style="text-align:left">Spear</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d6 + 3 one-handed / 1d8 + 3 two-handed Piercing</td>
+</tr>
+<tr>
+<td style="text-align:left">Dagger</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d6 + 3 Piercing; thrown 20/60 ft</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>Martial Arts:</strong> Dex for Monk weapons and Unarmed Strikes; one Unarmed Strike as a Bonus Action.</li>
+<li><strong>Focus (3 points):</strong> Flurry of Blows (two Bonus Action Unarmed Strikes); Patient Defense (Disengage + Dodge); Step of the Wind (Disengage + Dash). All return on a Short Rest.</li>
+<li><strong>Open Hand Technique:</strong> a Flurry hit can prevent Opportunity Attacks, push 15 ft (Str save), or knock Prone (Dex save).</li>
+<li><strong>Deflect Attacks:</strong> Reaction reduces B/P/S attack damage by 1d10+6; if reduced to 0, spend 1 Focus to redirect for 2d6+3 (Dex save).</li>
+<li><strong>Uncanny Metabolism:</strong> once per Long Rest when Initiative is rolled, recover all Focus and 1d6+3 HP.</li>
+<li><strong>Orc:</strong> Darkvision 120 ft, Relentless Endurance (once per Long Rest), Adrenaline Rush (twice per Short Rest: Dash as Bonus Action, 2 Temp HP).</li>
+<li><strong>Savage Attacker.</strong></li>
+<li><strong>Useful turn:</strong> Flurry to push an enemy off a station; 40-ft Speed for rescues; free Martial Arts strike with no Focus spent.</li>
+</ul>
+<p>Equipment: Spear, five Daggers, Smith's Tools, Dice Set, Explorer's Pack, Healer's Kit, traveler supplies.</p>
+<hr>
+<h2 id="oren-valebright">Oren Valebright</h2>
+<p>Silver Dragonborn Soldier, level 3 Oath of Devotion Paladin</p>
+<p><strong>Public disposition:</strong> You are a sworn road warden who arbitrates caravan claims and escorts people through contested crossings. Your order sent you to determine whether the causeway is a lawful public passage, a private salvage claim, or a danger that must be closed.</p>
+<blockquote><p>A gate that opens only for the powerful is not a road. It is a toll disguised as a miracle.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">19 (Chain Mail, Shield, Defense)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">28 (3d10 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">12 / +4</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+4</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Athletics +5, Insight +3, Intimidation +4, Persuasion +4. Dragonchess Set +3 (Wis). All armor, Shields, simple and martial weapons. Common, Draconic, Dwarvish.</li>
+<li>Longsword +5 (1d8+3 Slashing; Sap). Javelin +5 (1d6+3 Piercing, 30/120 ft; Slow).</li>
+<li><strong>Prepared:</strong> Bless, Command, Cure Wounds, Heroism. <strong>Always prepared:</strong> Divine Smite, Protection from Evil and Good, Shield of Faith. <strong>Slots:</strong> three level 1.</li>
+<li><strong>Costly component:</strong> one flask of Holy Water in the Priest's Pack allows exactly one casting of Protection from Evil and Good; the flask is consumed and does not return.</li>
+<li><strong>Lay On Hands (15 HP pool):</strong> Bonus Action to restore HP, or spend 5 to remove Poisoned. Long Rest only.</li>
+<li><strong>Channel Divinity (2 uses):</strong> Divine Sense; <strong>Sacred Weapon</strong> adds +2 to melee weapon attacks for 10 minutes and can make damage Radiant. One use returns on a Short Rest.</li>
+<li><strong>Paladin's Smite:</strong> one free Divine Smite per Long Rest in addition to slot casting.</li>
+<li><strong>Silver Dragonborn:</strong> Cold Resistance, Darkvision 60 ft, Breath Weapon twice per Long Rest (15-ft Cone or 30-ft Line, Dex DC 12, 1d10 Cold, half on success).</li>
+<li><strong>Savage Attacker.</strong></li>
+<li><strong>Useful turn:</strong> Sacred Weapon for +7 Longsword; Bless the group; Lay On Hands as a Bonus Action while still attacking or completing a task.</li>
+</ul>
+<p>Equipment: Chain Mail, Shield, Longsword, six Javelins, Holy Symbol, Dragonchess Set, Priest's Pack (with the Holy Water), Healer's Kit, traveler supplies.</p>
+<hr>
+<h2 id="neris-moss">Neris Moss</h2>
+<p>High Elf Soldier, level 3 Hunter Ranger</p>
+<p><strong>Public disposition:</strong> You are a licensed route surveyor and missing-caravan tracker who treats every map as a claim that must be walked and revised. The merchants' guild hired you to record when the causeway exists, where it leads, and which visible dangers a later expedition would face.</p>
+<blockquote><p>A line on parchment is a promise about the ground. I came to see who this road has been lying to.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">15 (Studded Leather)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">28 (3d10 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">16</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">12 / +4</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+3</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Athletics +3, Insight +4, Intimidation +2, Investigation +1, Perception +6 (Expertise), Survival +4. Dragonchess Set +4 (Wis). Common, Elvish, Dwarvish, Giant, Goblin.</li>
+<li>Longbow +7 (1d8+3 Piercing, 150/600 ft; Slow; Archery). Shortsword +5 (1d6+3 Piercing; Vex). 20 arrows.</li>
+<li><strong>Prepared:</strong> Cure Wounds, Ensnaring Strike, Goodberry, Longstrider. <strong>Always prepared:</strong> Hunter's Mark (two free castings per Long Rest). <strong>Slots:</strong> three level 1.</li>
+<li><strong>High Elf:</strong> Prestidigitation; one free Detect Magic per Long Rest (Wisdom); Darkvision 60 ft, Fey Ancestry, Trance.</li>
+<li><strong>Hunter's Lore:</strong> while Hunter's Mark is active, know the marked creature's Immunities, Resistances, Vulnerabilities.</li>
+<li><strong>Colossus Slayer:</strong> once per turn, a weapon hit deals extra 1d8 if the target is missing HP.</li>
+<li><strong>Savage Attacker.</strong></li>
+<li><strong>Useful turn:</strong> mark a priority enemy and fire at +7; Perception +6 before risking a route; keep Goodberry and Cure Wounds for attrition and rescues.</li>
+</ul>
+<p>Equipment: Studded Leather, Scimitar, Shortsword, Longbow, twenty Arrows, Quiver, Druidic Focus, Dragonchess Set, Explorer's Pack, traveler supplies.</p>
+<hr>
+<h2 id="ilyra-quill">Ilyra Quill</h2>
+<p>Human Criminal, level 3 Thief Rogue</p>
+<p><strong>Public disposition:</strong> You are an antiquarian surveyor who authenticates disputed ruins, reconstructs mechanisms, and identifies salvage that can be sold without inheriting someone else's claim.</p>
+<blockquote><p>A vanished city offers evidence valuable enough to settle several disputes in my favor. I intend to know which pieces are real before anyone prices them.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">14 (Leather Armor)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">21 (3d8 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 30 ft; Climb 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+5 (includes Alert)</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">12</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+4</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Acrobatics +5, Arcana +4, Deception +1, History +4, Insight +2, Investigation +6 (Expertise), Perception +2, Persuasion +1, Sleight of Hand +5, Stealth +7 (Expertise). Thieves' Tools +5 (Advantage when Sleight of Hand also applies). Simple weapons; Finesse or Light martial weapons; Light armor. Common, Elvish, Halfling, Orc, Thieves' Cant.</li>
+</ul>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Attack</th>
+<th style="text-align:right">Roll</th>
+<th style="text-align:left">Hit</th>
+<th style="text-align:left">Mastery</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Shortsword</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d6 + 3 Piercing</td>
+<td style="text-align:left">Vex</td>
+</tr>
+<tr>
+<td style="text-align:left">Shortbow</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d6 + 3 Piercing; 80/320 ft; 20 arrows</td>
+<td style="text-align:left">Vex</td>
+</tr>
+<tr>
+<td style="text-align:left">Dagger</td>
+<td style="text-align:right">+5</td>
+<td style="text-align:left">1d4 + 3 Piercing; thrown 20/60 ft</td>
+<td style="text-align:left">-</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>Sneak Attack (2d6):</strong> once per turn on a Finesse or Ranged hit with Advantage, or when an ally is within 5 ft of the target and Ilyra lacks Disadvantage.</li>
+<li><strong>Cunning Action:</strong> Dash, Disengage, or Hide as a Bonus Action.</li>
+<li><strong>Steady Aim:</strong> if she has not moved, Bonus Action for Advantage on the next attack; Speed 0 this turn.</li>
+<li><strong>Fast Hands:</strong> Bonus Action Sleight of Hand or Thieves' Tools check, Utilize, or use a magic item.</li>
+<li><strong>Second-Story Work:</strong> Climb Speed equals Speed; Dex can determine jump distance.</li>
+<li><strong>Human and Alert:</strong> Heroic Inspiration after a Long Rest; +2 Initiative; may swap Initiative with a willing ally.</li>
+<li><strong>Useful turn:</strong> Investigation +6 on a mechanism; Sneak Attack from an ally's position; Fast Hands to manipulate a mechanism while keeping the main action.</li>
+</ul>
+<p>Equipment: Leather Armor, Shortsword, Shortbow with twenty Arrows, two Daggers, Thieves' Tools, Crowbar, Burglar's Pack, traveler supplies.</p>
+<hr>
+<h2 id="nyra-cinderglass">Nyra Cinderglass</h2>
+<p>Infernal Tiefling Acolyte, level 3 Draconic Sorcerer</p>
+<p><strong>Public disposition:</strong> You conserve magical glass, warded reliquaries, and heat-damaged inscriptions for temples that cannot afford another beautiful reconstruction with the wrong properties. You came to compare the Mist's visible anomalies with the fire and scales awakening in your own magic.</p>
+<blockquote><p>I know what uncontrolled power looks like. The dangerous part is how often it looks exactly like finished work.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">14 (Draconic Resilience)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">23 (3d6 Hit Dice; includes Draconic Resilience)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">13 / +5; Innate Sorcery raises DC to 14 and grants Advantage on Sorcerer spell attacks</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+4</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Arcana +1, Insight +3, Persuasion +5, Religion +1. Calligrapher's Supplies. Common, Draconic, Elvish.</li>
+<li>Dagger +3 (1d4+1). Sorcerous Burst +5 (1d8 chosen type, exploding 8s). Fire Bolt +5 (1d10 Fire).</li>
+<li><strong>Cantrips:</strong> Mage Hand, Mending, Message, Sorcerous Burst; Thaumaturgy and Fire Bolt (Tiefling). <strong>Prepared:</strong> Detect Magic, Magic Missile, Shield, Thunderwave, Invisibility, Scorching Ray. <strong>Always prepared (Draconic):</strong> Alter Self, Chromatic Orb, Command, Dragon's Breath. <strong>Slots:</strong> four level 1, two level 2.</li>
+<li><strong>Costly component:</strong> Chromatic Orb needs a 50+ GP diamond. Nyra has none; unavailable unless you make one recoverable.</li>
+<li><strong>Acolyte Magic Initiate:</strong> Guidance, Spare the Dying, one free Healing Word per Long Rest (Charisma). Healing Word = 2d4 + 3.</li>
+<li><strong>Infernal Tiefling:</strong> one free Hellish Rebuke per Long Rest, Fire Resistance, Darkvision 60 ft.</li>
+<li><strong>Innate Sorcery (2 uses):</strong> Bonus Action, 1 minute; +1 DC and Advantage on Sorcerer spell attacks. Long Rest only.</li>
+<li><strong>Sorcery Points (3):</strong> Careful Spell (protect allies from a save spell); Transmuted Spell (change Acid/Cold/Fire/Lightning/Poison/Thunder).</li>
+<li><strong>Useful turn:</strong> Innate Sorcery then Scorching Ray; Careful Thunderwave around allies; keep Shield and Healing Word ready.</li>
+</ul>
+<p>Equipment: Spear, two Daggers, Arcane Focus crystal, Calligrapher's Supplies, Holy Symbol, Dungeoneer's Pack, prayer book, traveler supplies.</p>
+<hr>
+<h2 id="edrik-fen">Edrik Fen</h2>
+<p>Rock Gnome Acolyte, level 3 Warlock (Fiend Patron)</p>
+<p><strong>Public disposition:</strong> You translate occult contracts, possession clauses, and magical promises for people who discovered too late that a bargain had more than one author. You believe the city's civic seals use the same hostile logic and came to recover their revocation language.</p>
+<blockquote><p>I do not object to bargains. I object to terms that become visible only after the other party owns the light.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">13 (Leather Armor)</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">21 (3d8 Hit Dice)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Small / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">13 / +5</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">11</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Arcana +3, Insight +2, Investigation +3, Religion +3. Calligrapher's Supplies. Common, Gnomish, Dwarvish.</li>
+<li>Eldritch Blast +5 (1d10+3 Force, Agonizing Blast).</li>
+<li><strong>Cantrips:</strong> Eldritch Blast, Mage Hand; Mending, Prestidigitation (Rock Gnome); Guidance, Light, Message (Tome). <strong>Prepared:</strong> Hex, Invisibility, Misty Step, Spider Climb. <strong>Always prepared (Fiend):</strong> Burning Hands, Command, Scorching Ray, Suggestion. <strong>Pact Magic:</strong> two level 2 slots, returning on a Short Rest.</li>
+<li><strong>Pact of the Tome:</strong> ritual-ready Comprehend Languages and Detect Magic.</li>
+<li><strong>Acolyte Magic Initiate:</strong> Spare the Dying, Thaumaturgy, one free Healing Word per Long Rest (Charisma). Healing Word = 2d4 + 3.</li>
+<li><strong>Invocations:</strong> Agonizing Blast; Eldritch Mind (Advantage on Con saves for Concentration).</li>
+<li><strong>Magical Cunning:</strong> once per Long Rest, a 1-minute rite recovers one Pact slot.</li>
+<li><strong>Dark One's Blessing:</strong> when an enemy drops to 0 HP by Edrik or within 10 ft of him, gain 6 Temporary HP.</li>
+<li><strong>Rock Gnome:</strong> Darkvision 60 ft; Advantage on Int/Wis/Cha saves; temporary clockwork devices.</li>
+<li><strong>Useful turn:</strong> Hex plus Eldritch Blast from range; Misty Step between threatened stations; Tome rituals to inspect before spending resources.</li>
+</ul>
+<p>Equipment: Leather Armor, Sickle, two Daggers, Arcane Focus orb, Book of Shadows, occult-lore book, Calligrapher's Supplies, Scholar's Pack, traveler supplies.</p>
+<hr>
+<h2 id="thea-flint">Thea Flint</h2>
+<p>Dwarf Sage, level 3 Evoker Wizard</p>
+<p><strong>Public disposition:</strong> You are a structural arcanist whose rejected theorem argues that temporal overlays preserve contradictions rather than resolving them. An academy sponsor sent you to record the city's Mistwork geometry and return with procedures another scholar can reproduce.</p>
+<blockquote><p>If the ruins agree with my theory, I want the measurements. If they disagree, I want those more.</p></blockquote>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Statistic</th>
+<th style="text-align:right">Value</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Armor Class</td>
+<td style="text-align:right">14 with Mage Armor; 19 against the triggering attack with Shield</td>
+</tr>
+<tr>
+<td style="text-align:left">Hit Points</td>
+<td style="text-align:right">23 (3d6 Hit Dice; includes Dwarven Toughness)</td>
+</tr>
+<tr>
+<td style="text-align:left">Size / Speed</td>
+<td style="text-align:right">Medium / 30 ft</td>
+</tr>
+<tr>
+<td style="text-align:left">Initiative</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Passive Perception</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td style="text-align:left">Spell save DC / attack</td>
+<td style="text-align:right">13 / +5</td>
+</tr>
+</tbody></table></div>
+<div class="tbl"><table>
+<thead><tr>
+<th style="text-align:left">Ability</th>
+<th style="text-align:right">Score</th>
+<th style="text-align:right">Mod</th>
+<th style="text-align:right">Save</th>
+</tr></thead><tbody>
+<tr>
+<td style="text-align:left">Str</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">Dex</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">+1</td>
+<td style="text-align:right">+1</td>
+</tr>
+<tr>
+<td style="text-align:left">Con</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+2</td>
+</tr>
+<tr>
+<td style="text-align:left">Int</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">+3</td>
+<td style="text-align:right">+5</td>
+</tr>
+<tr>
+<td style="text-align:left">Wis</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">+2</td>
+<td style="text-align:right">+4</td>
+</tr>
+<tr>
+<td style="text-align:left">Cha</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">+0</td>
+<td style="text-align:right">+0</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Skills: Arcana +5, History +5, Investigation +7 (Expertise, Scholar), Nature +5. Calligrapher's Supplies. Common, Dwarvish, Gnomish.</li>
+<li>Fire Bolt +5 (1d10 Fire). Dagger +3 (1d4+1).</li>
+<li><strong>Cantrips:</strong> Fire Bolt, Mage Hand, Mending. <strong>Spellbook:</strong> Comprehend Languages, Detect Magic, Feather Fall, Find Familiar, Identify, Mage Armor, Magic Missile, Shield, Misty Step, Web; Scorching Ray, Shatter (Evocation Savant). <strong>Prepared:</strong> Detect Magic, Mage Armor, Magic Missile, Shield, Misty Step, Web. <strong>Slots:</strong> four level 1, two level 2.</li>
+<li><strong>Sage Magic Initiate:</strong> Light, Message, one free Feather Fall per Long Rest (Intelligence).</li>
+<li><strong>Costly components:</strong> Find Familiar needs 10+ GP incense; Identify needs a 100+ GP pearl. Thea has neither.</li>
+<li><strong>Ritual Adept:</strong> cast Ritual spells from the spellbook without preparing.</li>
+<li><strong>Arcane Recovery:</strong> once per Long Rest after a Short Rest, recover slots totaling two levels.</li>
+<li><strong>Potent Cantrip:</strong> a missed or saved damaging cantrip still deals half damage.</li>
+<li><strong>Dwarf:</strong> Darkvision 120 ft, Poison Resistance, Advantage vs Poisoned, Stonecunning twice per Long Rest.</li>
+<li><strong>Useful turn:</strong> Investigation +7 on a mechanism; Web to control an approach; Magic Missile when reliability matters.</li>
+</ul>
+<p>Equipment: two Daggers, Arcane Focus Quarterstaff, Robe, Spellbook, Calligrapher's Supplies, Scholar's Pack, field diagrams, traveler supplies.</p>
+<hr>
+</div>
+</main>
+</div>
+</body>
+</html>
