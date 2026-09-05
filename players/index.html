@@ -1,66 +1,12 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Unmoored City Player Guide</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-:root { color-scheme: light dark;
-  --paper:#EEF1F3; --paper-2:#E3E8EB; --ink:#1C2229; --ink-2:#4A5560; --rule:#C9D1D6;
-  --brass:#9A7A2E; --brass-soft:#D9C58F; --verdigris:#2F6E67; --verdigris-soft:#D6E8E4;
-  --code-bg:#E6EAEC; --quote-bg:#E9EDEF; --shadow:rgba(28,34,41,.08); }
-@media (prefers-color-scheme: dark) { :root {
-  --paper:#14191E; --paper-2:#1B2127; --ink:#DDE3E6; --ink-2:#9AA6AF; --rule:#2E373F;
-  --brass:#D0A94F; --brass-soft:#5C4A1E; --verdigris:#6BBFB3; --verdigris-soft:#1E3431;
-  --code-bg:#1E252B; --quote-bg:#1B2127; --shadow:rgba(0,0,0,.35); } }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif; font-size:17px; line-height:1.55; }
-.shell { display:grid; grid-template-columns:272px minmax(0,1fr); min-height:100vh; }
-nav.rail { position:sticky; top:0; height:100vh; overflow-y:auto; background:var(--paper-2); border-right:1px solid var(--rule); padding:28px 18px 40px; box-sizing:border-box; }
-nav.rail .brand { font-family:"Spectral",Georgia,serif; font-weight:700; font-size:20px; line-height:1.2; color:var(--ink); margin:0 0 4px; }
-nav.rail .brand small { display:block; font-family:"Source Sans 3",sans-serif; font-weight:400; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--brass); margin-top:6px; }
-nav.rail .home { display:block; font-size:13px; color:var(--verdigris); margin:10px 0 0; }
-nav.rail .navlist { display:flex; flex-direction:column; gap:1px; margin-top:20px; }
-nav.rail a { color:var(--ink-2); text-decoration:none; display:block; border-radius:3px; padding:4px 8px; font-size:14px; line-height:1.3; }
-nav.rail a:hover, nav.rail a:focus-visible { background:var(--verdigris-soft); color:var(--ink); outline:none; }
-nav.rail a.nav-l1 { color:var(--ink); font-weight:600; margin-top:12px; font-family:"Spectral",Georgia,serif; font-size:15px; }
-nav.rail a.nav-l2 { padding-left:18px; }
-nav.rail, main { min-width:0; }
-main { padding:48px 56px 120px; box-sizing:border-box; }
-.content { max-width:74ch; }
-h1,h2,h3,h4 { font-family:"Spectral",Georgia,serif; text-wrap:balance; line-height:1.15; }
-h1 { font-size:38px; font-weight:700; margin:64px 0 12px; padding-top:18px; border-top:3px solid var(--brass); }
-h1:first-of-type { margin-top:0; border-top:0; padding-top:0; font-size:46px; }
-h2 { font-size:26px; font-weight:700; margin:44px 0 10px; }
-h3 { font-size:20px; font-weight:700; margin:30px 0 8px; color:var(--brass); }
-h4 { font-size:17px; font-weight:700; margin:22px 0 6px; }
-p { margin:0 0 14px; } strong { font-weight:600; } a { color:var(--verdigris); }
-code { font-family:"IBM Plex Mono",Consolas,monospace; font-size:.88em; background:var(--code-bg); padding:1px 5px; border-radius:3px; }
-pre { background:var(--code-bg); border-left:3px solid var(--brass); padding:14px 16px; overflow-x:auto; font-size:14px; line-height:1.45; margin:14px 0 18px; }
-pre code { background:none; padding:0; font-size:inherit; }
-blockquote { margin:16px 0 18px; padding:12px 18px; background:var(--quote-bg); border-left:3px solid var(--verdigris); font-family:"Spectral",Georgia,serif; font-style:italic; font-size:18px; }
-blockquote p { margin:0; }
-ul,ol { padding-left:24px; margin:0 0 14px; } li { margin:0 0 5px; } li.task { list-style:none; margin-left:-20px; }
-hr { border:0; border-top:1px solid var(--rule); margin:40px 0; }
-.tbl { overflow-x:auto; margin:12px 0 20px; border:1px solid var(--rule); border-radius:4px; box-shadow:0 1px 2px var(--shadow); }
-table { border-collapse:collapse; width:100%; font-size:15px; font-variant-numeric:tabular-nums; }
-th { background:var(--paper-2); font-weight:600; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); padding:9px 12px; border-bottom:2px solid var(--brass-soft); white-space:nowrap; }
-td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; } tr:last-child td { border-bottom:0; } td:first-child { font-weight:600; }
-@media (max-width:900px) { .shell { grid-template-columns:minmax(0,1fr); } nav.rail { position:static; height:auto; max-height:40vh; border-right:0; border-bottom:1px solid var(--rule); } main { padding:28px 20px 80px; } h1:first-of-type { font-size:34px; } h1 { font-size:30px; } }
-@media print { nav.rail { display:none; } .shell { display:block; } main { padding:0; } .content { max-width:none; } h1 { break-before:page; } h1:first-of-type { break-before:auto; } }
-</style>
-</head>
-<body>
-<div class="shell">
-<nav class="rail" aria-label="Sections">
-  <p class="brand">The Unmoored City<small>Player Guide</small></p>
-  <a class="home" href="../">Back to the front page</a>
-  <div class="navlist">
-<a class="nav-l2" href="#the-premise-the-players-know">The premise the players know</a>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><meta name="book-assets" content="../assets/book/"><meta name="book-role" content="players">
+
+<title>The Unmoored City: Player Guide</title><link rel="stylesheet" href="../assets/book/book.css?v=f1617fdbd7e9"><script defer src="../assets/book/book.js?v=e3e5cfc4c56b"></script>
+</head><body><div class="shell">
+<nav class="rail" aria-label="Sections"><p class="brand">The Unmoored City<small>Player Guide</small></p>
+<a class="home" href="../">Back to the front page</a><div class="navlist"><a class="nav-l2" href="#the-premise-the-players-know">The premise the players know</a>
 <a class="nav-l2" href="#the-repeated-expedition-loop">The repeated expedition loop</a>
 <a class="nav-l2" href="#the-foreclock">The Foreclock</a>
 <a class="nav-l2" href="#the-project-board">The project board</a>
@@ -80,11 +26,8 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <a class="nav-l2" href="#ilyra-quill">Ilyra Quill</a>
 <a class="nav-l2" href="#nyra-cinderglass">Nyra Cinderglass</a>
 <a class="nav-l2" href="#edrik-fen">Edrik Fen</a>
-<a class="nav-l2" href="#thea-flint">Thea Flint</a>
-  </div>
-</nav>
-<main>
-<div class="content">
+<a class="nav-l2" href="#thea-flint">Thea Flint</a></div></nav>
+<main><div class="content">
 <h1 id="the-unmoored-city-player-guide">The Unmoored City: Player Guide</h1>
 <p>Everything on this page is public. Your character's private motive card is handed to you at the table and is yours alone.</p>
 <h2 id="the-premise-the-players-know">The premise the players know</h2>
@@ -353,7 +296,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 </tr>
 </tbody></table></div>
 <p>Tracked consumables: Mara, Neris, and Ilyra each carry 20 arrows (after a fight, one minute of searching recovers half the arrows spent in that fight, rounded down). Oren carries one flask of Holy Water, consumed by one casting of Protection from Evil and Good; it does not come back during the day.</p>
-<hr>
+<hr/>
 <h2 id="brannik-stonewake">Brannik Stonewake</h2>
 <p>Dwarf Soldier, level 3 Path of the Berserker Barbarian</p>
 <p><strong>Public disposition:</strong> You assess failed quarries, bridges, and freight machinery by testing what their builders expected stone and muscle to bear. A trade factor hired you to determine whether the Borrowed Road and the city's lifting works can support real salvage crews.</p>
@@ -463,7 +406,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Rage, Reckless Attack, Greataxe; or handaxe and Shield when holding a station.</li>
 </ul>
 <p>Equipment: Greataxe, four Handaxes, Shield, Explorer's Pack, Healer's Kit, Dragonchess Set, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="lio-bellweather">Lio Bellweather</h2>
 <p>Halfling Acolyte, level 3 College of Lore Bard</p>
 <p><strong>Public disposition:</strong> You travel as a civic balladeer, contract witness, and collector of songs that encode who promised what to whom. A consortium asked you to record the causeway's appearances and determine whether the city preserves authentic voices or merely convincing echoes.</p>
@@ -555,7 +498,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> inspire the character attempting a task; hold Healing Word for an ally at 0 Stability; Shatter clustered enemies.</li>
 </ul>
 <p>Equipment: Leather Armor, two Daggers, lute, Calligrapher's Supplies, Holy Symbol, parchment, Entertainer's Pack, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="calder-ash">Calder Ash</h2>
 <p>Goliath Acolyte, level 3 Life Domain Cleric</p>
 <p><strong>Public disposition:</strong> You serve a roadside hospice as a field-priest, healer, and surveyor of abandoned burial grounds. The hospice sent you to learn whether the city's restorative works preserve living patients or only the appearance of successful care.</p>
@@ -646,7 +589,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Bless before pressure; Healing Word as a Bonus Action; Preserve Life when more than one ally is Bloodied.</li>
 </ul>
 <p>Equipment: Chain Mail, Shield, Mace, Holy Symbol, Calligrapher's Supplies, prayer book, parchment, Robe, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="veya-reed">Veya Reed</h2>
 <p>Wood Elf Sage, level 3 Circle of the Land Druid</p>
 <p><strong>Public disposition:</strong> You study the ravine as an ecologist and seasonal pathfinder, tracking plants that flower, wither, and regrow out of sequence near the silver Mist. Your circle asked you to determine which cycles the city borrows and whether any restored system can live without borrowing again.</p>
@@ -737,7 +680,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Entangle or Faerie Fire to shape the field; Wild Shape to scout; Shillelagh when holding a station.</li>
 </ul>
 <p>Equipment: Leather Armor, Shield, Sickle, Quarterstaff focus, Herbalism Kit, Calligrapher's Supplies, Scholar's Pack, field journal, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="mara-venn">Mara Venn</h2>
 <p>Human Soldier, level 3 Champion Fighter</p>
 <p><strong>Public disposition:</strong> You are a practical caravan guard and failed forge-owner hired to verify the disputed salvage road and authenticate any working forge machinery recovered beyond it.</p>
@@ -857,7 +800,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> hold a threat with the flail; solve physical mechanisms with Athletics or Smith's Tools; Action Surge when the finale needs both a task and an attack.</li>
 </ul>
 <p>Equipment: Chain Mail, Greatsword, Flail, eight Javelins, Shortbow with twenty Arrows, Spear, Healer's Kit, Dragonchess Set, Dungeoneer's Pack, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="tamsin-vale">Tamsin Vale</h2>
 <p>Orc Soldier, level 3 Warrior of the Open Hand Monk</p>
 <p><strong>Public disposition:</strong> You carry sealed petitions, emergency medicine, and route reports between isolated communities for a monastery that treats delivery as a public trust. You followed the Borrowed Road to learn whether it can become a repeatable passage rather than another miraculous exception.</p>
@@ -972,7 +915,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Flurry to push an enemy off a station; 40-ft Speed for rescues; free Martial Arts strike with no Focus spent.</li>
 </ul>
 <p>Equipment: Spear, five Daggers, Smith's Tools, Dice Set, Explorer's Pack, Healer's Kit, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="oren-valebright">Oren Valebright</h2>
 <p>Silver Dragonborn Soldier, level 3 Oath of Devotion Paladin</p>
 <p><strong>Public disposition:</strong> You are a sworn road warden who arbitrates caravan claims and escorts people through contested crossings. Your order sent you to determine whether the causeway is a lawful public passage, a private salvage claim, or a danger that must be closed.</p>
@@ -1064,7 +1007,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Sacred Weapon for +7 Longsword; Bless the group; Lay On Hands as a Bonus Action while still attacking or completing a task.</li>
 </ul>
 <p>Equipment: Chain Mail, Shield, Longsword, six Javelins, Holy Symbol, Dragonchess Set, Priest's Pack (with the Holy Water), Healer's Kit, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="neris-moss">Neris Moss</h2>
 <p>High Elf Soldier, level 3 Hunter Ranger</p>
 <p><strong>Public disposition:</strong> You are a licensed route surveyor and missing-caravan tracker who treats every map as a claim that must be walked and revised. The merchants' guild hired you to record when the causeway exists, where it leads, and which visible dangers a later expedition would face.</p>
@@ -1154,7 +1097,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> mark a priority enemy and fire at +7; Perception +6 before risking a route; keep Goodberry and Cure Wounds for attrition and rescues.</li>
 </ul>
 <p>Equipment: Studded Leather, Scimitar, Shortsword, Longbow, twenty Arrows, Quiver, Druidic Focus, Dragonchess Set, Explorer's Pack, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="ilyra-quill">Ilyra Quill</h2>
 <p>Human Criminal, level 3 Thief Rogue</p>
 <p><strong>Public disposition:</strong> You are an antiquarian surveyor who authenticates disputed ruins, reconstructs mechanisms, and identifies salvage that can be sold without inheriting someone else's claim.</p>
@@ -1268,7 +1211,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Investigation +6 on a mechanism; Sneak Attack from an ally's position; Fast Hands to manipulate a mechanism while keeping the main action.</li>
 </ul>
 <p>Equipment: Leather Armor, Shortsword, Shortbow with twenty Arrows, two Daggers, Thieves' Tools, Crowbar, Burglar's Pack, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="nyra-cinderglass">Nyra Cinderglass</h2>
 <p>Infernal Tiefling Acolyte, level 3 Draconic Sorcerer</p>
 <p><strong>Public disposition:</strong> You conserve magical glass, warded reliquaries, and heat-damaged inscriptions for temples that cannot afford another beautiful reconstruction with the wrong properties. You came to compare the Mist's visible anomalies with the fire and scales awakening in your own magic.</p>
@@ -1359,7 +1302,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Innate Sorcery then Scorching Ray; Careful Thunderwave around allies; keep Shield and Healing Word ready.</li>
 </ul>
 <p>Equipment: Spear, two Daggers, Arcane Focus crystal, Calligrapher's Supplies, Holy Symbol, Dungeoneer's Pack, prayer book, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="edrik-fen">Edrik Fen</h2>
 <p>Rock Gnome Acolyte, level 3 Warlock (Fiend Patron)</p>
 <p><strong>Public disposition:</strong> You translate occult contracts, possession clauses, and magical promises for people who discovered too late that a bargain had more than one author. You believe the city's civic seals use the same hostile logic and came to recover their revocation language.</p>
@@ -1451,7 +1394,7 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Hex plus Eldritch Blast from range; Misty Step between threatened stations; Tome rituals to inspect before spending resources.</li>
 </ul>
 <p>Equipment: Leather Armor, Sickle, two Daggers, Arcane Focus orb, Book of Shadows, occult-lore book, Calligrapher's Supplies, Scholar's Pack, traveler supplies.</p>
-<hr>
+<hr/>
 <h2 id="thea-flint">Thea Flint</h2>
 <p>Dwarf Sage, level 3 Evoker Wizard</p>
 <p><strong>Public disposition:</strong> You are a structural arcanist whose rejected theorem argues that temporal overlays preserve contradictions rather than resolving them. An academy sponsor sent you to record the city's Mistwork geometry and return with procedures another scholar can reproduce.</p>
@@ -1543,9 +1486,6 @@ td { padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; 
 <li><strong>Useful turn:</strong> Investigation +7 on a mechanism; Web to control an approach; Magic Missile when reliability matters.</li>
 </ul>
 <p>Equipment: two Daggers, Arcane Focus Quarterstaff, Robe, Spellbook, Calligrapher's Supplies, Scholar's Pack, field diagrams, traveler supplies.</p>
-<hr>
-</div>
-</main>
-</div>
-</body>
-</html>
+<hr/>
+</div></main>
+</div></body></html>
